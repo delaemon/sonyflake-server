@@ -6,7 +6,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/sony/sonyflake"
+	"github.com/delaemon/sonyflake"
 )
 
 var sf *sonyflake.Sonyflake
