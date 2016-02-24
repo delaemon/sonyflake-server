@@ -44,6 +44,13 @@ func serverID() (uint16, error) {
 			case *net.IPAddr:
 				ip = v.IP
 			}
+			if ip == nil || ip.IsLoopback() {
+				continue
+			}
+			ip = ip.To4()
+			if ip == nil {
+				continue // not an ipv4 address
+			}
 			return uint16(ip[2])<<8 + uint16(ip[3]), nil
 		}
 	}
