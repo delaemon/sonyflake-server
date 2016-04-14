@@ -14,7 +14,7 @@ var sf *sonyflake.Sonyflake
 func init() {
 	var st sonyflake.Settings
 	st.MachineID = serverID
-	sf = sonyflake.NewSonyflake(st)
+	sf = sonyflake.New(st)
 	if sf == nil {
 		panic("sonyflake not created")
 	}
