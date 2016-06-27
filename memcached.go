@@ -15,9 +15,11 @@ import (
 )
 
 var (
-	memdSep    = []byte("\r\n")
-	memdSepLen = len(memdSep)
-	memdSpc    = []byte(" ")
+	memdSep       = []byte("\r\n")
+	memdSepLen    = len(memdSep)
+	memdSpace     = []byte(" ")
+	memdValHeader = []byte("VALUE ")
+	memdValFooter = []byte("END\r\n")
 )
 
 func listenTCP(host string, port int) error {
@@ -134,15 +136,17 @@ type MemdValue struct {
 func (v MemdValue) WriteTo(w io.Writer) (int64, error) {
 	var b bytes.Buffer
 	for i, key := range v.Keys {
+		b.Write(memdValHeader)
 		b.WriteString(key)
-		b.Write(memdSpc)
+		b.Write(memdSpace)
 		b.WriteString(strconv.Itoa(v.Flags))
-		b.Write(memdSpc)
+		b.Write(memdSpace)
 		b.WriteString(strconv.Itoa(len(v.Values[i])))
 		b.Write(memdSep)
 		b.WriteString(v.Values[i])
 		b.Write(memdSep)
 	}
+	b.Write(memdValFooter)
 	return b.WriteTo(w)
 }
 
