@@ -1,6 +1,17 @@
 # sonyflake-server
-## Usage
+## Setup
 ```
-go get github.com/sony/sonyflake
-go run server.go
+go get github.com/delaemon/sonyflake
+```
+
+## Http
+```
+mv _http.go http.go
+go run http.go
+```
+
+## Memcached
+```
+mv _memcached.go memcached.go
+go run memcached.go
 ```
